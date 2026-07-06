@@ -1,0 +1,176 @@
+/* === App-level animations & extra polish === */
+
+/* Fade-in on page enter */
+.page-content {
+  animation: pageFadeIn 0.25s ease;
+}
+
+@keyframes pageFadeIn {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Skeleton loader */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--bg-surface) 25%,
+    rgba(255,255,255,0.75) 50%,
+    var(--bg-surface) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.4s infinite;
+  border-radius: var(--radius-sm);
+}
+
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+.skeleton-text { height: 13px; margin-bottom: 6px; }
+.skeleton-text.wide { width: 80%; }
+.skeleton-text.medium { width: 55%; }
+.skeleton-text.short { width: 30%; }
+.skeleton-box { height: 40px; }
+.skeleton-row { height: 48px; margin-bottom: 1px; }
+
+/* Chart tooltip */
+.recharts-tooltip-wrapper {
+  outline: none !important;
+}
+
+/* Table row actions — show on hover */
+tbody tr .btn { opacity: 0.5; transition: opacity 0.15s; }
+tbody tr:hover .btn { opacity: 1; }
+
+/* Sticky table header */
+.table-container table thead {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+/* Card hover glow for stat cards */
+.stat-card:hover {
+  box-shadow: 0 0 0 1px var(--accent-color, var(--accent-primary)),
+              0 8px 20px rgba(20,20,20,0.08);
+}
+
+/* Modal animation */
+.modal-backdrop {
+  animation: backdropIn 0.15s ease;
+}
+
+.modal {
+  animation: modalIn 0.2s cubic-bezier(0.34, 1.2, 0.64, 1);
+}
+
+@keyframes backdropIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes modalIn {
+  from { opacity: 0; transform: scale(0.94) translateY(10px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+/* Sidebar active indicator */
+.sidebar-nav-item.active::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  background: var(--accent-primary);
+  border-radius: 0 3px 3px 0;
+}
+
+.sidebar-nav-item {
+  position: relative;
+}
+
+/* Tag variants */
+.tag.success { background: rgba(34,197,94,0.1); color: #4ade80; border-color: rgba(34,197,94,0.2); }
+.tag.success { color: #17833b; }
+.tag.warning { background: rgba(255,119,0,0.1); color: #d96300; border-color: rgba(255,119,0,0.24); }
+.tag.danger  { background: rgba(217,48,37,0.08);  color: #d93025; border-color: rgba(217,48,37,0.2); }
+
+/* No-data empty state */
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48px 24px;
+  color: var(--text-muted);
+  gap: 12px;
+}
+
+.empty-state svg {
+  opacity: 0.3;
+}
+
+.empty-state p {
+  font-size: 14px;
+}
+
+/* Status pipeline step hover */
+.pipeline-step {
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+  cursor: default;
+}
+
+.pipeline-step:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
+}
+
+/* Recharts axis text */
+.recharts-cartesian-axis-tick-value {
+  fill: var(--text-muted) !important;
+}
+
+/* Focus outlines for accessibility */
+.btn:focus-visible,
+.form-control:focus-visible,
+.sidebar-nav-item:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 2px;
+}
+
+/* Print styles */
+@media print {
+  .sidebar, .topbar, .btn { display: none !important; }
+  .main-content { margin-left: 0 !important; }
+  .page-content { margin-top: 0 !important; }
+  body { background: white; color: black; }
+  .card { border: 1px solid #ccc; box-shadow: none; }
+}
+
+/* Mobile tweaks */
+@media (max-width: 640px) {
+  .grid-2, .grid-3 { grid-template-columns: 1fr !important; }
+  .filters-row { flex-direction: column; }
+  .search-box { min-width: 100%; }
+  .stats-grid { grid-template-columns: 1fr 1fr; }
+  .modal { margin: 12px; }
+}
+
+/* Tooltip override */
+.recharts-default-tooltip {
+  background: var(--bg-card) !important;
+  border: 1px solid var(--border-default) !important;
+  border-radius: var(--radius-md) !important;
+  font-size: 12px !important;
+  color: var(--text-primary) !important;
+  box-shadow: var(--shadow-md) !important;
+}
+
+/* Drag-over effect for file upload */
+.drop-zone-active {
+  border-color: var(--accent-primary) !important;
+  background: rgba(255,119,0,0.08) !important;
+}
